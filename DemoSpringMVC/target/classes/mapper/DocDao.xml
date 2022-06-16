@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cqu.ssm.dao.DocDao">
+
+    <resultMap type="com.cqu.ssm.entity.Doc" id="DocMap">
+        <result property="docId" column="doc_id" jdbcType="INTEGER"/>
+        <result property="categoryId" column="category_id" jdbcType="INTEGER"/>
+        <result property="docTitle" column="doc_title" jdbcType="VARCHAR"/>
+        <result property="docSummary" column="doc_summary" jdbcType="VARCHAR"/>
+        <result property="docUploaduser" column="doc_uploaduser" jdbcType="VARCHAR"/>
+        <result property="docCreatedate" column="doc_createdate" jdbcType="TIMESTAMP"/>
+        <result property="docModifyuser" column="doc_modifyuser" jdbcType="VARCHAR"/>
+        <result property="docModifydate" column="doc_modifydate" jdbcType="TIMESTAMP"/>
+        <result property="docImage" column="doc_image" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="DocMap">
+        select
+          doc_id, category_id, doc_title, doc_summary, doc_uploaduser, doc_createdate, doc_modifyuser, doc_modifydate, doc_image
+        from doc
+        where doc_id = #{docId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="DocMap">
+        select
+          doc_id, category_id, doc_title, doc_summary, doc_uploaduser, doc_createdate, doc_modifyuser, doc_modifydate, doc_image
+        from doc
+        <where>
+            <if test="docId != null">
+                and doc_id = #{docId}
+            </if>
+            <if test="categoryId != null">
+                and category_id = #{categoryId}
+            </if>
+            <if test="docTitle != null and docTitle != ''">
+                and doc_title = #{docTitle}
+            </if>
+            <if test="docSummary != null and docSummary != ''">
+                and doc_summary = #{docSummary}
+            </if>
+            <if test="docUploaduser != null and docUploaduser != ''">
+                and doc_uploaduser = #{docUploaduser}
+            </if>
+            <if test="docCreatedate != null">
+                and doc_createdate = #{docCreatedate}
+            </if>
+            <if test="docModifyuser != null and docModifyuser != ''">
+                and doc_modifyuser = #{docModifyuser}
+            </if>
+            <if test="docModifydate != null">
+                and doc_modifydate = #{docModifydate}
+            </if>
+            <if test="docImage != null and docImage != ''">
+                and doc_image = #{docImage}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from doc
+        <where>
+            <if test="docId != null">
+                and doc_id = #{docId}
+            </if>
+            <if test="categoryId != null">
+                and category_id = #{categoryId}
+            </if>
+            <if test="docTitle != null and docTitle != ''">
+                and doc_title = #{docTitle}
+            </if>
+            <if test="docSummary != null and docSummary != ''">
+                and doc_summary = #{docSummary}
+            </if>
+            <if test="docUploaduser != null and docUploaduser != ''">
+                and doc_uploaduser = #{docUploaduser}
+            </if>
+            <if test="docCreatedate != null">
+                and doc_createdate = #{docCreatedate}
+            </if>
+            <if test="docModifyuser != null and docModifyuser != ''">
+                and doc_modifyuser = #{docModifyuser}
+            </if>
+            <if test="docModifydate != null">
+                and doc_modifydate = #{docModifydate}
+            </if>
+            <if test="docImage != null and docImage != ''">
+                and doc_image = #{docImage}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="docId" useGeneratedKeys="true">
+        insert into doc(category_id, doc_title, doc_summary, doc_uploaduser, doc_createdate, doc_modifyuser, doc_modifydate, doc_image)
+        values (#{categoryId}, #{docTitle}, #{docSummary}, #{docUploaduser}, #{docCreatedate}, #{docModifyuser}, #{docModifydate}, #{docImage})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="docId" useGeneratedKeys="true">
+        insert into doc(category_id, doc_title, doc_summary, doc_uploaduser, doc_createdate, doc_modifyuser, doc_modifydate, doc_image)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.categoryId}, #{entity.docTitle}, #{entity.docSummary}, #{entity.docUploaduser}, #{entity.docCreatedate}, #{entity.docModifyuser}, #{entity.docModifydate}, #{entity.docImage})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="docId" useGeneratedKeys="true">
+        insert into doc(category_id, doc_title, doc_summary, doc_uploaduser, doc_createdate, doc_modifyuser, doc_modifydate, doc_image)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.categoryId}, #{entity.docTitle}, #{entity.docSummary}, #{entity.docUploaduser}, #{entity.docCreatedate}, #{entity.docModifyuser}, #{entity.docModifydate}, #{entity.docImage})
+        </foreach>
+        on duplicate key update
+        category_id = values(category_id),
+        doc_title = values(doc_title),
+        doc_summary = values(doc_summary),
+        doc_uploaduser = values(doc_uploaduser),
+        doc_createdate = values(doc_createdate),
+        doc_modifyuser = values(doc_modifyuser),
+        doc_modifydate = values(doc_modifydate),
+        doc_image = values(doc_image)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update doc
+        <set>
+            <if test="categoryId != null">
+                category_id = #{categoryId},
+            </if>
+            <if test="docTitle != null and docTitle != ''">
+                doc_title = #{docTitle},
+            </if>
+            <if test="docSummary != null and docSummary != ''">
+                doc_summary = #{docSummary},
+            </if>
+            <if test="docUploaduser != null and docUploaduser != ''">
+                doc_uploaduser = #{docUploaduser},
+            </if>
+            <if test="docCreatedate != null">
+                doc_createdate = #{docCreatedate},
+            </if>
+            <if test="docModifyuser != null and docModifyuser != ''">
+                doc_modifyuser = #{docModifyuser},
+            </if>
+            <if test="docModifydate != null">
+                doc_modifydate = #{docModifydate},
+            </if>
+            <if test="docImage != null and docImage != ''">
+                doc_image = #{docImage},
+            </if>
+        </set>
+        where doc_id = #{docId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from doc where doc_id = #{docId}
+    </delete>
+
+</mapper>
+

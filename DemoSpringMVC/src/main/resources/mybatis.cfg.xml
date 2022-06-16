@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+    <settings>
+        <!--1.配置log4j-->
+        <setting name="logImpl" value="LOG4J"/>
+        <!-- 2.开启驼峰命名映射 -->
+        <setting name="mapUnderscoreToCamelCase" value="true" />
+    </settings>
+    <!--3.类型别名-->
+    <typeAliases>
+        <!-- 定义单个类型别名-->
+        <!--<typeAlias type="model.Doc" alias="Doc"></typeAlias>-->
+        <!--扫描包下所有类型别名-->
+        <package name="com.cqu.ssm.entity"></package>
+    </typeAliases>
+    <!-- 4.加载Dao层映射文件 -->
+    <mappers>
+        <mapper resource="/mapper/AuthorityDao.xml"/>
+    </mappers>
+</configuration>
