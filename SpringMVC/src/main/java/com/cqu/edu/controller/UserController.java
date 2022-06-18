@@ -3,10 +3,7 @@ package com.cqu.edu.controller;
 import com.cqu.edu.domain.User;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -17,21 +14,19 @@ import java.util.List;
 //2.定义Controller
 //2.1使用@Controller定义bean
 @Controller
-@RequestMapping("/user")
 public class UserController {
     //2.2设置当前操作的访问路径
-    @RequestMapping("/save")
+    @RequestMapping(value = "/users",method = RequestMethod.POST)
     //2.3设置当前操作的返回值类型
     @ResponseBody
-    public String save(String name, int age){
-        System.out.println("user save..."+name);
-        System.out.println("user save..."+age);
+    public String save(){
+        System.out.println("user save...");
         return "{'module':'user save'}";
     }
-    @RequestMapping("/delete")
+    @RequestMapping(value = "/users/{id}",method = RequestMethod.DELETE)
     @ResponseBody
-    public String delete(){
-        System.out.println("user delete...");
+    public String delete(@PathVariable Integer id){
+        System.out.println("user delete..."+id);
         return "{'module':'user delete'}";
     }
     //参数不同名传递 @RequestParam("")
