@@ -2,6 +2,7 @@ package com.cqu.edu.controller;
 
 import com.cqu.edu.domain.User;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -66,5 +67,26 @@ public class UserController {
     public String ListParam(@RequestParam List<String> like){
         System.out.println(like);
         return "{'module':'ListParam'}";
+    }
+    //集合参数,json
+    @RequestMapping("/ListParamForJson")
+    @ResponseBody
+    public String ListParamForJason(@RequestBody List<String> like){
+        System.out.println(like);
+        return "{'module':'ListParamForJson'}";
+    }
+    //pojo参数 json
+    @RequestMapping("/PojoParamForJson")
+    @ResponseBody
+    public String PojoParamForJason(@RequestBody User user){
+        System.out.println(user);
+        return "{'module':'PojoParamForJson'}";
+    }
+    //集合参数 json
+    @RequestMapping("/ListPojoParamForJson")
+    @ResponseBody
+    public String ListPojoParamForJson(@RequestBody List<User> users){
+        System.out.println(users);
+        return "{'module':'ListPojoParamForJson'}";
     }
 }
