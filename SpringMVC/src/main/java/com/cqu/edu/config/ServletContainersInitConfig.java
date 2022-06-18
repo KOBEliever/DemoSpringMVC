@@ -6,19 +6,20 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
 import org.springframework.web.servlet.support.AbstractDispatcherServletInitializer;
 public class ServletContainersInitConfig extends AbstractAnnotationConfigDispatcherServletInitializer {
     @Override
-    protected Class<?>[] getRootConfigClasses() {
+    protected Class<?>[] getServletConfigClasses() {
         return new Class[]{SpringMvcConfig.class};
     }
 
     @Override
-    protected Class<?>[] getServletConfigClasses() {
-        return new Class[]{SpringConfig.class};
+    protected Class<?>[] getRootConfigClasses() {
+        return new Class[0];
     }
 
     @Override
     protected String[] getServletMappings() {
         return new String[]{"/"};
     }
+}
 //4.定义servlet容器启动的配置类，在里面加载spring的配置
 //public class ServletContainersInitConfig extends AbstractDispatcherServletInitializer {
 //    //加载SpringMVC容器配置
@@ -36,9 +37,6 @@ public class ServletContainersInitConfig extends AbstractAnnotationConfigDispatc
 //    //加载spring容器配置
 //    @Override
 //    protected WebApplicationContext createRootApplicationContext() {
-//
-//        AnnotationConfigWebApplicationContext ctx=new AnnotationConfigWebApplicationContext();
-//        ctx.register(SpringConfig.class);
-//        return ctx;
+//        return null;
 //    }
-}
+//}
