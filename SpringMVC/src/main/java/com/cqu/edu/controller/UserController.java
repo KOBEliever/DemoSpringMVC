@@ -1,6 +1,7 @@
 package com.cqu.edu.controller;
 
 import com.cqu.edu.domain.User;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 //2.定义Controller
@@ -88,5 +90,14 @@ public class UserController {
     public String ListPojoParamForJson(@RequestBody List<User> users){
         System.out.println(users);
         return "{'module':'ListPojoParamForJson'}";
+    }
+    //日期参数
+    @RequestMapping("/DateParam")
+    @ResponseBody
+    public String DateParam(Date date,@DateTimeFormat(pattern = "yyyy-MM-dd") Date date1 , @DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss") Date date2){
+        System.out.println(date);
+        System.out.println(date1);
+        System.out.println(date2);
+        return "{'module':'DateParam'}";
     }
 }
