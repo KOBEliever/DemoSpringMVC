@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -99,5 +100,46 @@ public class UserController {
         System.out.println(date1);
         System.out.println(date2);
         return "{'module':'DateParam'}";
+    }
+
+    //响应页面/跳转页面
+    @RequestMapping("/toJumpPage")
+    public String toJumpPage(){
+        System.out.println("跳转页面");
+//        return "src/main/webapp/page.html";
+        return "page.jsp";
+    }
+    //响应文本数据
+    @RequestMapping("/toText")
+    @ResponseBody
+    public String toText(){
+        System.out.println("响应文本数据");
+        return "response text";
+    }
+    //响应POJO对象
+    @RequestMapping("/toJsonPojo")
+    @ResponseBody
+    public User toJsonPOJO(){
+        System.out.println("toJsonPOJO");
+        User user = new User();
+        user.setName("dingyi");
+        user.setAge(21);
+        return user;
+    }
+    //响应pojo集合对象
+    @RequestMapping("/toJsonPojoList")
+    @ResponseBody
+    public List<User> toJsonPOJOList(){
+        System.out.println("toJsonPojoList");
+        User user1 = new User();
+        user1.setName("dingyi");
+        user1.setAge(21);
+        User user2 = new User();
+        user2.setName("qinghaoting");
+        user2.setAge(21);
+        List<User> users=new ArrayList<User>();
+        users.add(user1);
+        users.add(user2);
+        return users;
     }
 }
