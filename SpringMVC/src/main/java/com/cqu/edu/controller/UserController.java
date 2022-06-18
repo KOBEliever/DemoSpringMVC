@@ -14,8 +14,9 @@ public class UserController {
     @RequestMapping("/save")
     //2.3设置当前操作的返回值类型
     @ResponseBody
-    public String save(){
-        System.out.println("user save...");
+    public String save(String name, int age){
+        System.out.println("user save..."+name);
+        System.out.println("user save..."+age);
         return "{'module':'user save'}";
     }
     @RequestMapping("/delete")
