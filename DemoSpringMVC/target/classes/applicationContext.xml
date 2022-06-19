@@ -4,6 +4,6 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd">
-    <import resource="classpath:src/main/resources/application-dao.xmlapplication-dao.xml"/>
-    <import resource="classpath:src/main/resources/application-service.xmlication-service.xml"/>
+    <import resource="classpath:./application-dao.xml"/>
+    <import resource="classpath:./application-service.xml"/>
 </beans>
